@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ujjwal Kumar | Software Engineer</title>
+<meta name="description" content="Portfolio of Ujjwal Kumar, B.Tech CSE at NIT Agartala. Backend, full-stack and AI projects in Python, FastAPI, Node.js and React.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #12141a;
+    --surface: #181b23;
+    --line: #2a2e3a;
+    --text: #e6e8ee;
+    --muted: #9aa1b2;
+    --accent: #a9b8ff;
+    --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+    --sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: inherit; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+  /* Top bar */
+  .bar {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+    background: rgba(18,20,26,.86);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar .wrap { display: flex; justify-content: space-between; align-items: center; height: 56px; }
+  .bar .mark { font-family: var(--serif); font-size: 22px; }
+  .bar nav { display: flex; gap: 20px; font-size: 14px; color: var(--muted); overflow-x: auto; }
+  .bar nav a:hover { color: var(--text); }
+
+  /* Hero */
+  .hero { padding: 96px 0 72px; }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(56px, 12vw, 116px);
+    line-height: .95;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+  }
+  .hero .lede { font-size: clamp(18px, 2.4vw, 22px); max-width: 34em; margin: 0 0 12px; }
+  .hero .sub { color: var(--muted); margin: 0 0 32px; max-width: 34em; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-block; padding: 10px 18px; border-radius: 999px;
+    border: 1px solid var(--line); font-size: 15px; font-weight: 500;
+    transition: border-color .15s, background .15s;
+  }
+  .btn:hover { border-color: var(--muted); }
+  .btn.primary { background: var(--accent); color: #141726; border-color: var(--accent); }
+  .btn.primary:hover { background: #bcc8ff; border-color: #bcc8ff; }
+
+  /* One orchestrated entrance */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero > * { opacity: 0; transform: translateY(10px); animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards; }
+    .hero > *:nth-child(1) { animation-delay: .05s; }
+    .hero > *:nth-child(2) { animation-delay: .2s; }
+    .hero > *:nth-child(3) { animation-delay: .3s; }
+    .hero > *:nth-child(4) { animation-delay: .4s; }
+    .hero > *:nth-child(5) { animation-delay: .5s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+  }
+
+  /* Numbers */
+  .facts {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    margin: 0 0 24px; padding: 0;
+  }
+  .facts div { padding: 20px 16px 20px 0; }
+  .facts div + div { padding-left: 16px; border-left: 1px solid var(--line); }
+  .facts dt { color: var(--muted); font-size: 14px; }
+  .facts dd { margin: 4px 0 0; font-family: var(--serif); font-size: 36px; line-height: 1.1; }
+  .facts dd small { font-family: var(--sans); font-size: 13px; color: var(--muted); display: block; margin-top: 4px; }
+
+  /* Sections */
+  section { padding: 56px 0 0; }
+  .row { display: grid; grid-template-columns: 160px 1fr; gap: 24px; }
+  .row > h2 {
+    font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.1; margin: 0;
+  }
+  .row > div > * + * { margin-top: 0; }
+
+  /* Projects */
+  details.project { border-top: 1px solid var(--line); }
+  details.project:last-child { border-bottom: 1px solid var(--line); }
+  details.project summary {
+    list-style: none; cursor: pointer; padding: 18px 0;
+    display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: baseline;
+  }
+  details.project summary::-webkit-details-marker { display: none; }
+  .project h3 { margin: 0; font-size: 19px; font-weight: 600; }
+  .project .tag { color: var(--muted); font-size: 14px; grid-column: 1; }
+  .project .plus { grid-row: 1; grid-column: 2; color: var(--muted); font-size: 22px; line-height: 1; transition: transform .2s; }
+  details[open].project .plus { transform: rotate(45deg); color: var(--accent); }
+  .project .body { padding: 0 0 20px; }
+  .project ul { margin: 0 0 14px; padding-left: 18px; }
+  .project li { margin-bottom: 8px; }
+  .project .links { display: flex; gap: 16px; font-size: 15px; }
+  .project .links a { color: var(--accent); border-bottom: 1px solid transparent; }
+  .project .links a:hover { border-bottom-color: var(--accent); }
+
+  /* Experience */
+  .job { padding: 0 0 28px; }
+  .job:last-child { padding-bottom: 0; }
+  .job .head { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .job h3 { margin: 0; font-size: 19px; font-weight: 600; }
+  .job .when { color: var(--muted); font-size: 14px; }
+  .job .where { color: var(--muted); margin: 2px 0 10px; }
+  .job ul { margin: 0; padding-left: 18px; }
+  .job li { margin-bottom: 8px; }
+
+  /* Skills */
+  .skills { margin: 0; }
+  .skills div { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 12px 0; border-top: 1px solid var(--line); }
+  .skills div:last-child { border-bottom: 1px solid var(--line); }
+  .skills dt { color: var(--muted); }
+  .skills dd { margin: 0; }
+
+  /* Lists */
+  .plain { list-style: none; margin: 0; padding: 0; }
+  .plain li { padding: 12px 0; border-top: 1px solid var(--line); }
+  .plain li:last-child { border-bottom: 1px solid var(--line); }
+  .plain b { font-weight: 600; }
+  .plain span { color: var(--muted); }
+
+  /* Contact */
+  form { display: grid; gap: 14px; max-width: 520px; }
+  label { display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+  input, textarea {
+    font: inherit; color: var(--text); background: var(--surface);
+    border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px;
+  }
+  textarea { min-height: 120px; resize: vertical; }
+  form button { justify-self: start; cursor: pointer; font: inherit; font-weight: 500; }
+  .note { color: var(--muted); font-size: 14px; margin: 14px 0 0; }
+  .links-line { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 28px; }
+  .links-line a { color: var(--accent); }
+  .links-line a:hover { text-decoration: underline; }
+
+  footer { margin-top: 72px; padding: 24px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 720px) {
+    .hero { padding: 64px 0 48px; }
+    .row { grid-template-columns: 1fr; gap: 16px; }
+    .facts { grid-template-columns: repeat(2, 1fr); }
+    .facts div:nth-child(3) { padding-left: 0; border-left: 0; }
+    .facts div:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .skills div { grid-template-columns: 1fr; gap: 2px; }
+    .bar nav { gap: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Back to top">Ujjwal Kumar</a>
+    <nav aria-label="Sections">
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <div class="hero">
+    <h1>Ujjwal Kumar</h1>
+    <p class="lede">I build backend APIs and AI-powered products, from the database to the interface.</p>
+    <p class="sub">B.Tech Computer Science student at NIT Agartala, graduating in 2027. I work mostly in Python, FastAPI, Node.js and React, and I'm looking for an SDE internship.</p>
+    <div class="actions">
+      <a class="btn primary" href="mailto:ujjwalkumarcs054@gmail.com">Email me</a>
+      <a class="btn" href="https://github.com/UjjwalKumar239" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://linkedin.com/in/ujjwal-kumar" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+
+  <dl class="facts" aria-label="Key numbers">
+    <div><dt>CGPA</dt><dd>9.12<small>NIT Agartala</small></dd></div>
+    <div><dt>LeetCode</dt><dd>1897<small>Knight, top 6% globally</small></dd></div>
+    <div><dt>Codeforces</dt><dd>1607<small>Expert</small></dd></div>
+    <div><dt>Problems solved</dt><dd>1000+<small>LeetCode and Codeforces</small></dd></div>
+  </dl>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="row">
+      <h2>Projects</h2>
+      <div id="project-list"></div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="row">
+      <h2>Experience</h2>
+      <div>
+        <div class="job">
+          <div class="head"><h3>AI Engineering Intern, NIC</h3><span class="when">May 2026 to July 2026</span></div>
+          <div class="where">National Informatics Centre, Agartala</div>
+          <ul>
+            <li>Led AI engineering for a DBT and Grievance Support Assistant, using embedding models (nomic-embed-text on Ollama) and FAISS for semantic, RAG-based scheme retrieval.</li>
+            <li>Designed a dual-mode retrieval system that pairs semantic search with a keyword fallback. It cut per-query API costs by 35% to 40% through local LLM fallback and kept 99.9% uptime when the local LLM is down.</li>
+            <li>Fixed critical bugs in the retrieval pipeline (index misalignment, missing normalization, inverted ranking) and added context-aware follow-ups across an 800+ chunk knowledge base.</li>
+          </ul>
+        </div>
+        <div class="job">
+          <div class="head"><h3>Web Development Intern, Hex Softwares</h3><span class="when">Jan 2026 to Feb 2026</span></div>
+          <div class="where">Hex Softwares Pvt. Ltd., remote</div>
+          <ul>
+            <li>Built and deployed 3+ RESTful microservices in Node.js and Express.js, with input validation that cut invalid-request errors by 40% in testing.</li>
+            <li>Worked through the full development cycle, from backend schema design to automated deployment, using Git workflows.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="row">
+      <h2>Skills</h2>
+      <dl class="skills">
+        <div><dt>Languages</dt><dd>Python, JavaScript and TypeScript, Java, C++, C, SQL, HTML and CSS</dd></div>
+        <div><dt>Backend</dt><dd>FastAPI, Flask, Django, Node.js, Express.js, Spring Boot, REST APIs, JWT auth</dd></div>
+        <div><dt>Frontend</dt><dd>Next.js, React.js, Tailwind CSS</dd></div>
+        <div><dt>Databases</dt><dd>PostgreSQL, MySQL, MongoDB, PGVector, FAISS, ChromaDB</dd></div>
+        <div><dt>AI and LLMs</dt><dd>OpenAI, Gemini and Groq APIs, RAG, Ollama, prompt engineering</dd></div>
+        <div><dt>Tools and cloud</dt><dd>Git, GitHub, Docker, Postman, AWS, Render, Vercel</dd></div>
+        <div><dt>Fundamentals</dt><dd>Data structures and algorithms, OOP, DBMS, operating systems, computer networks, system design</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="row">
+      <h2>Achievements</h2>
+      <ul class="plain">
+        <li><b>LeetCode Knight.</b> <span>Max rating 1897, 700+ problems solved, consistently in the top 6% globally.</span></li>
+        <li><b>Codeforces Expert.</b> <span>Max rating 1607, 1000+ problems solved across LeetCode and Codeforces.</span></li>
+        <li><b>Flipkart Grid 7.0 national semi-finalist.</b> <span>Advanced from 300,000+ participants.</span></li>
+        <li><b>Code for Bharat Hackathon 2025.</b> <span>Led a team of 4 to build an AI-powered interview prep platform, shortlisted among the top 50 teams nationwide.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="row">
+      <h2>Certifications</h2>
+      <ul class="plain">
+        <li><b>Oracle Certified Foundations Associate, Agentic AI.</b> <span>Oracle University</span></li>
+        <li><b>Microsoft Azure Essentials.</b> <span>Great Learning</span></li>
+        <li><b>SQL Intermediate.</b> <span>HackerRank</span></li>
+        <li><b>AI-Machine Learning Engineer.</b> <span>Reliance Foundation Skilling Academy</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="row">
+      <h2>Contact</h2>
+      <div>
+        <form id="contact-form" novalidate>
+          <label>Your name
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+          </label>
+          <label>Message
+            <textarea id="f-msg" name="message" required></textarea>
+          </label>
+          <button class="btn primary" type="submit">Open in email app</button>
+        </form>
+        <p class="note" id="form-note" role="status">This opens your email app with the message filled in, addressed to ujjwalkumarcs054@gmail.com.</p>
+        <div class="links-line">
+          <a href="mailto:ujjwalkumarcs054@gmail.com">ujjwalkumarcs054@gmail.com</a>
+          <a href="tel:+919389743413">+91 93897 43413</a>
+          <a href="https://github.com/UjjwalKumar239" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://linkedin.com/in/ujjwal-kumar" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Ujjwal Kumar, Bijnor, Uttar Pradesh, India. Studying at NIT Agartala.</footer>
+</main>
+
+<script>
+  // Project data. Add a "live" or "github" URL to any project and its link appears automatically.
+  var PROJECTS = [
+    {
+      name: "CP Hint Generator",
+      tag: "Python, FastAPI, React, Node.js, ChromaDB, RAG, OpenAI API",
+      points: [
+        "Full-stack AI mentor with a React frontend and a FastAPI backend. It gives graduated hints that never reveal the solution, across 5,000+ competitive programming problems.",
+        "Retrieval-Augmented Generation on ChromaDB embeds and retrieves targeted problem-solving heuristics for each question."
+      ],
+      live: "https://cp-hint-generator.vercel.app/",
+      github: "https://github.com/UjjwalKumar239/cp-master"
+    },
+    {
+      name: "Jarvis",
+      tag: "React.js, Node.js, Express.js, MongoDB, Tailwind CSS, OpenAI API",
+      points: [
+        "Production-ready MERN-stack AI assistant that supports 50+ concurrent sessions, with JWT authentication and role-based access control.",
+        "10+ REST API endpoints with MongoDB indexing, which cut average query time by 35% in load tests.",
+        "OpenAI speech-to-text with sub-2 second response latency, on a stateless backend built to scale horizontally."
+      ],
+      live: "https://virtualassistant-sgbe.onrender.com/",
+      github: "https://github.com/UjjwalKumar239/Ai-assistant"
+    },
+    {
+      name: "Responser",
+      tag: "Spring Boot, Chrome Extension (Manifest V3), Google Gemini API",
+      points: [
+        "Chrome extension that adds an AI Reply button to Gmail's compose toolbar, so you can write context-aware replies without leaving the inbox.",
+        "Spring Boot REST API using WebClient to call Gemini (gemini-1.5-flash). Replies arrive in under 2 seconds in 3 tones: Professional, Friendly and Concise.",
+        "Nested Gemini JSON is parsed on the server, so the extension does not depend on the AI provider's response format and the provider can be swapped."
+      ],
+      live: "",
+      github: "https://github.com/UjjwalKumar239/responser"
+    }
+  ];
+
+  var list = document.getElementById("project-list");
+  PROJECTS.forEach(function (p, i) {
+    var d = document.createElement("details");
+    d.className = "project";
+    if (i === 0) d.open = true;
+
+    var s = document.createElement("summary");
+    var h = document.createElement("h3"); h.textContent = p.name;
+    var plus = document.createElement("span"); plus.className = "plus"; plus.setAttribute("aria-hidden", "true"); plus.textContent = "+";
+    var tag = document.createElement("span"); tag.className = "tag"; tag.textContent = p.tag;
+    s.appendChild(h); s.appendChild(plus); s.appendChild(tag);
+    d.appendChild(s);
+
+    var body = document.createElement("div"); body.className = "body";
+    var ul = document.createElement("ul");
+    p.points.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
+    body.appendChild(ul);
+
+    if (p.live || p.github) {
+      var links = document.createElement("div"); links.className = "links";
+      if (p.live) { var a = document.createElement("a"); a.href = p.live; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Live demo"; links.appendChild(a); }
+      if (p.github) { var g = document.createElement("a"); g.href = p.github; g.target = "_blank"; g.rel = "noopener"; g.textContent = "Source on GitHub"; links.appendChild(g); }
+      body.appendChild(links);
+    }
+    d.appendChild(body);
+    list.appendChild(d);
+  });
+
+  // Contact form: builds a mailto link (no server needed)
+  document.getElementById("contact-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = document.getElementById("f-name").value.trim();
+    var msg = document.getElementById("f-msg").value.trim();
+    var note = document.getElementById("form-note");
+    if (!name || !msg) { note.textContent = "Add your name and a message, then try again."; return; }
+    var subject = encodeURIComponent("Hello from " + name);
+    var body = encodeURIComponent(msg + "\n\n" + name);
+    note.textContent = "Opening your email app.";
+    window.location.href = "mailto:ujjwalkumarcs054@gmail.com?subject=" + subject + "&body=" + body;
+  });
+</script>
+</body>
+</html>
